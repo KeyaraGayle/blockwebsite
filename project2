@@ -1,0 +1,28 @@
+from tkinter import *
+
+window = Tk()
+window.geometry('650x400')
+window.minsize(650, 400)
+window.maxsize(650, 400)
+window.title("DataFlair Website Blocker")
+
+heading = Label(window, text='Website Blocker', font='arial')
+heading.pack()
+
+host_path = 'C:\\Windows\\System32\\drivers\\etc\\hosts'
+ip_address = '127.0.0.1'
+
+
+def Blocker():
+    website_lists = enter_Website.get(1.0, END)
+    websites = list(website_lists.split(","))
+    with open(host_path, 'r+') as host_file:
+        file_content = host_file.read()
+        for web in websites:
+            if web.strip() in file_content:
+                display = Label(window, text='Already Blocked', font='arial')
+                display.place(x=200, y=200)
+            else:
+                host_file.write(ip_address + " " + web.strip() + '\n')
+                Label(window, text="Blocked", font='arial').place(x=230, y=200)
+
